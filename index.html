@@ -11,10 +11,9 @@ var onGigyaServiceReady = function () {
 			document.getElementById("reg_link").hidden=true;
 			document.getElementById("login_link").hidden=true;
 			document.getElementById("logout_link").hidden=false;
-			const flow = gigya.flow('sports_newsletter', ')
+			const flow = gigya.flow('sports_newsletter')
 			.on('sports_newsletter', eventData => {
-				alert('Hello sports fan!');
-				});
+				console.log('Hello sports fan!');});
 			flow.execute();
 		},onLogout: function () {
 			document.getElementById("sub_link").hidden=false;
