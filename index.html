@@ -1,13 +1,49 @@
 <html>
 <head>
-<title>Mobile Ready Screen-Set Implementation Example</title>
+<title>SAP Customer Identity Web SDK Sample</title>
 <meta name="viewport" content="width=device-width">
-<SCRIPT type="text/javascript" lang="javascript" src="https://cdns.eu1.gigya.com/js/gigya.js?apikey=4_-cjlV5zRzf1SamLNoh8bJQ"></SCRIPT>
+<SCRIPT type="text/javascript" lang="javascript"src="https://cdns.eu1.gigya.com/js/gigya.js?apikey=4_-cjlV5zRzf1SamLNoh8bJQ""></SCRIPT>
+<SCRIPT type="text/javascript" lang="javascript">
+var onGigyaServiceReady = function () {
+	gigya.socialize.addEventHandlers({
+		onLogin: function () {
+			document.getElementById("sub_link").hidden=true;
+			document.getElementById("reg_link").hidden=true;
+			document.getElementById("login_link").hidden=true;
+			document.getElementById("logout_link").hidden=false;
+			const flow = gigya.flow('sports_newsletter', ')
+			.on('sports_newsletter', eventData => {
+				alert('Hello sports fan!');
+				});
+			flow.execute();
+		},onLogout: function () {
+			document.getElementById("sub_link").hidden=false;
+			document.getElementById("reg_link").hidden=false;
+			document.getElementById("login_link").hidden=false;
+			document.getElementById("logout_link").hidden=true;
+		}
+	});
+}
+gigya.accounts.getAccountInfo({
+	callback:function (response) {
+		if (response.errorCode == 0) {
+			document.getElementById("sub_link").hidden=true;
+			document.getElementById("reg_link").hidden=true;
+			document.getElementById("login_link").hidden=true;
+			document.getElementById("logout_link").hidden=false;
+		}else {
+			document.getElementById("sub_link").hidden=false;
+			document.getElementById("reg_link").hidden=false;
+			document.getElementById("login_link").hidden=false;
+			document.getElementById("logout_link").hidden=true;}
+			}
+});
+</SCRIPT>
 </head>
 <body>
-C4H620<br>
-<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-LiteRegistration'});">Subscribe Here!</a> &nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin', startScreen:'gigya-register-screen'});">Register</a>&nbsp;&nbsp;|&nbsp;&nbsp;
-<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin'});">Login</a>
+<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-LiteRegistration'});" id="sub_link">Subscribe Here!</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin', startScreen:'gigya-register-screen'});" id="reg_link">Register</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="gigya.accounts.showScreenSet({screenSet:'Default-RegistrationLogin'});" id="login_link">Login</a>&nbsp;&nbsp;&nbsp;&nbsp;
+<a href="#" onclick="gigya.accounts.logout();" id="logout_link">Logout</a>
 </body>
 </html>
